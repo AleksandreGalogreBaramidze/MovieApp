@@ -15,10 +15,12 @@ import kotlinx.coroutines.launch
 
 class SplashScreen : BaseFragment<FragmentSplashScreenBinding>(FragmentSplashScreenBinding::inflate) {
     override fun init(layoutInflater: LayoutInflater, viewGroup: ViewGroup?){
-        binding.topText.animation(R.anim.top_animation)
-        binding.midText.animation(R.anim.mid_animation)
-        binding.botText.animation(R.anim.bottom_animation)
-        binding.logo.animation(R.anim.logo_animation)
+        with(binding){
+            topText.animation(R.anim.top_animation)
+            midText.animation(R.anim.mid_animation)
+            botText.animation(R.anim.bottom_animation)
+            logo.animation(R.anim.logo_animation)
+        }
         lifecycleScope.launch {
             delay(SPLASH_DELAY)
             findNavController().navigate(R.id.action_splashScreen2_to_movies)
