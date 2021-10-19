@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/splashScreen2">
+    <fragment
+        android:id="@+id/splashScreen2"
+        android:name="com.example.movieapp.splash.SplashScreen"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            android:id="@+id/action_splashScreen2_to_movies"
+            app:destination="@id/movies" />
+    </fragment>
+    <fragment
+        android:id="@+id/movies"
+        android:name="com.example.movieapp.movies.Movies"
+        android:label="movies_fragment"
+        tools:layout="@layout/movies_fragment" />
+</navigation>
