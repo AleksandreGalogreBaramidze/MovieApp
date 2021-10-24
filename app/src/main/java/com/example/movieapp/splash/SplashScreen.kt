@@ -21,6 +21,7 @@ class SplashScreen : BaseFragment<FragmentSplashScreenBinding>(FragmentSplashScr
             botText.animation(R.anim.bottom_animation)
             logo.animation(R.anim.logo_animation)
         }
+
         lifecycleScope.launch {
             delay(SPLASH_DELAY)
             findNavController().navigate(R.id.action_splashScreen2_to_movies)
