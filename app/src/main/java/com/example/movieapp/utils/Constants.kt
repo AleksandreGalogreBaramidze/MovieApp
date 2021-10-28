@@ -7,4 +7,8 @@ object Constants {
     const val KEY = "4447406fa19278447af973ac8ef884ae"
     const val POPULAR = "popular"
     const val TOP_RATED = "top_rated"
+    const val POPULAR_FOR_VIEW = "Popular"
+    const val TOP_RATED_FOR_VIEW = "Top Rated"
+    const val SAVED = "saved"
+    const val GOOGLE_URL = "https://www.google.com/"
 }

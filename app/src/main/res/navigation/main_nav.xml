@@ -8,14 +8,31 @@
         android:id="@+id/splashScreen2"
         android:name="com.example.movieapp.splash.SplashScreen"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_splash_screen">
         <action
             android:id="@+id/action_splashScreen2_to_movies"
-            app:destination="@id/movies" />
+            app:destination="@id/movies"
+            app:popUpTo="@id/splashScreen2"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/movies"
         android:name="com.example.movieapp.movies.Movies"
         android:label="movies_fragment"
-        tools:layout="@layout/movies_fragment" />
+        tools:layout="@layout/movies_fragment" >
+        <action
+            android:id="@+id/action_movies_to_moviesDetailScreen"
+            app:destination="@id/moviesDetailScreen" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviesDetailScreen"
+        android:name="com.example.movieapp.movies_detail.MoviesDetailScreen"
+        android:label="movies_detail_screen_fragment"
+        tools:layout="@layout/movies_detail_screen_fragment" >
+        <argument
+            android:name="id"
+            app:argType="integer"
+            />
+    </fragment>
+
 </navigation>
