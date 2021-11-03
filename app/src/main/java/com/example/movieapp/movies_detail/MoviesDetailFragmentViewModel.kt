@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 @HiltViewModel
-class MoviesDetailScreenViewModel@Inject constructor(
+class MoviesDetailFragmentViewModel@Inject constructor(
     private val retrofitRepository: RetrofitRepository,
     private val databaseRepository: DatabaseRepository
 ) : ViewModel() {
@@ -34,7 +34,7 @@ class MoviesDetailScreenViewModel@Inject constructor(
         }
     }
 
-    fun favMovie(Entity: Entity) {
+    fun favoriteMovies(Entity: Entity) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 databaseRepository.saveMovie(Entity)
@@ -42,7 +42,7 @@ class MoviesDetailScreenViewModel@Inject constructor(
         }
     }
 
-    fun alreadyFav(id: Int) {
+    fun isFavorite(id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 _checkerLiveData.postValue(databaseRepository.checker(id))
@@ -50,7 +50,7 @@ class MoviesDetailScreenViewModel@Inject constructor(
         }
     }
 
-    fun deleteFromFav(id: Int) {
+    fun removeFavorite(id: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 databaseRepository.deleteMovie(id)

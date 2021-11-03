@@ -5,21 +5,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movieapp.database.Entity
 import com.example.movieapp.databinding.ItemBinding
 import com.example.movieapp.extensions.load
 import com.example.movieapp.models.Movie
-import com.example.movieapp.utils.Constants.BASE_PICTURE_URL
-import com.example.movieapp.utils.getId
+import com.example.movieapp.utils.getMoviesId
 import com.example.movieapp.utils.openNextPage
 
 
-class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>() {
+class MoviesRecyclerAdapter : RecyclerView.Adapter<MoviesRecyclerAdapter.ViewHolder>() {
     lateinit var loadPage: openNextPage
-    private var data = mutableListOf<Movie.Result>()
-    lateinit var getId : getId
-    private lateinit var item: Movie.Result
-    private var page = 1
+    private var data = mutableListOf<Movie.Results>()
+    lateinit var getMoviesId : getMoviesId
+    private lateinit var item: Movie.Results
 
     class ViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -29,19 +26,18 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         item = data[position]
-        holder.binding.mainImage.load(holder.binding.root.context, BASE_PICTURE_URL + (item.backdrop_path))
-        holder.binding.titleTextView.text = item.title
-        holder.binding.mainImage.setOnClickListener {
-            data[position].id?.let { it1 -> getId(it1) }
-        }
-        if (position == data.size - 1) {
-            loadPage(page + 1)
+        with(holder.binding){
+            mainImage.load(holder.binding.root.context, item.urlGenerator())
+            titleTextView.text = item.title
+            mainImage.setOnClickListener {
+                getMoviesId(data[position].id)
+            }
         }
     }
 
     override fun getItemCount() = data.size
 
-    fun getData(data: Movie) {
+    fun setData(data: Movie) {
         this.data.clear()
         this.data = data.results!!.toMutableList()
         notifyDataSetChanged()
@@ -49,15 +45,13 @@ class HomeRecyclerAdapter : RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>
 
     fun loadNextPage(data: Movie) {
         this.data.addAll(data.results!!)
-        this.page = data.page!!
+        loadPage.invoke(data.page!!)
         notifyDataSetChanged()
     }
 
-    fun getSavedData(data: List<Entity>) {
+    fun setSavedData(data: MutableList<Movie.Results>) {
         this.data.clear()
-        val favoriteMovies: MutableList<Movie.Result> = mutableListOf()
-        data.forEach { favoriteMovies.add(Movie.Result(it.poster, it.id, "unknown", "unknown", 0.0, "unknown", "unknown","",false, null)) }
-        this.data = favoriteMovies
+        this.data = data
         notifyDataSetChanged()
     }
 }

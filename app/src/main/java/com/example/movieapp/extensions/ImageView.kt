@@ -6,6 +6,5 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.R
 
 fun ImageView.load(context: Context, url: String) {
-    Glide.with(context).load(url).placeholder(R.drawable.movie_frame)
-        .into(this)
+    Glide.with(context).load(url).placeholder(R.drawable.movie_frame).into(this)
 }

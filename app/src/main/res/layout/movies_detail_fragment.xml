@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/bgr_color"
-        tools:context=".movies_detail.MoviesDetailScreen">
+        tools:context=".movies_detail.MoviesDetailFragment">
 
 
         <androidx.cardview.widget.CardView
@@ -28,9 +28,11 @@
 
             <ImageView
                 android:id="@+id/mainImage"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                 />
 
             <ImageView
                 android:id="@+id/favoriteStarImageView"
@@ -104,15 +106,15 @@
 
                 <TextView
                     android:id="@+id/detailMovieRatingTxt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_marginHorizontal="15dp"
                     android:layout_marginBottom="30dp"
-                    android:text="@string/rating_4_2"
+                    android:background="@drawable/favourite"
+                    android:gravity="center"
+                    android:text="@string/_4_2"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    />
-
+                    android:textSize="15sp" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>

@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class ModuleRep {
     @Provides
     @Singleton
-    fun signInRepository(
+    fun provideRepository(
         retrofitService: RetrofitService,
     ): RetrofitRepository = RetrofitRepositoryImplementation(retrofitService)
 }

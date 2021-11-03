@@ -16,5 +16,9 @@ import javax.inject.Singleton
 class Module {
     @Provides
     @Singleton
-    fun getMoviesData(): RetrofitService = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build().create(RetrofitService::class.java)
+    fun provideRetrofit(): Retrofit = Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+
+    @Provides
+    @Singleton
+    fun provideService(retrofit: Retrofit):RetrofitService = retrofit.create(RetrofitService::class.java)
 }

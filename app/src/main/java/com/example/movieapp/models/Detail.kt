@@ -12,4 +12,8 @@ data class Detail(
     val releaseDate: String,
     @SerializedName("vote_average")
     val voteAverage: Double?,
-    )
+    ){
+    fun urlGenerator(): String{
+        return "https://image.tmdb.org/t/p/w500/$posterPath"
+    }
+}
