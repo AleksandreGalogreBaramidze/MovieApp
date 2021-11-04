@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.listeners
+package com.example.movieapp.ui.adapters
 
 import android.widget.AbsListView
 import androidx.recyclerview.widget.GridLayoutManager

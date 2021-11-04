@@ -19,7 +19,7 @@ import com.example.movieapp.extensions.animation
 import com.example.movieapp.extensions.observer
 import com.example.movieapp.extensions.setUp
 import com.example.movieapp.extensions.toast
-import com.example.movieapp.ui.listeners.SetScrollListener
+import com.example.movieapp.ui.adapters.SetScrollListener
 import com.example.movieapp.utils.Constants.CONNECTION_CHECKER_DELAY
 import com.example.movieapp.utils.Constants.POPULAR
 import com.example.movieapp.utils.Constants.POPULAR_FOR_VIEW
