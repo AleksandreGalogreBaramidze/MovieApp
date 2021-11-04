@@ -1,4 +1,4 @@
-package com.example.movieapp.adapters
+package com.example.movieapp.ui.adapters
 
 
 import android.view.LayoutInflater
@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.databinding.ItemBinding
 import com.example.movieapp.extensions.load
 import com.example.movieapp.models.Movie
+import com.example.movieapp.models.MovieDetails
 import com.example.movieapp.utils.getMoviesId
 import com.example.movieapp.utils.openNextPage
 
 
 class MoviesRecyclerAdapter : RecyclerView.Adapter<MoviesRecyclerAdapter.ViewHolder>() {
     lateinit var loadPage: openNextPage
-    private var data = mutableListOf<Movie.Results>()
+    private var data = mutableListOf<MovieDetails>()
     lateinit var getMoviesId : getMoviesId
-    private lateinit var item: Movie.Results
+    private lateinit var item: MovieDetails
 
     class ViewHolder(val binding: ItemBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -39,6 +40,7 @@ class MoviesRecyclerAdapter : RecyclerView.Adapter<MoviesRecyclerAdapter.ViewHol
 
     fun setData(data: Movie) {
         this.data.clear()
+        loadPage.invoke(data.page!!)
         this.data = data.results!!.toMutableList()
         notifyDataSetChanged()
     }
@@ -49,7 +51,7 @@ class MoviesRecyclerAdapter : RecyclerView.Adapter<MoviesRecyclerAdapter.ViewHol
         notifyDataSetChanged()
     }
 
-    fun setSavedData(data: MutableList<Movie.Results>) {
+    fun setSavedData(data: MutableList<MovieDetails>) {
         this.data.clear()
         this.data = data
         notifyDataSetChanged()

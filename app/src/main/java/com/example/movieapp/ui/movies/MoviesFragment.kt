@@ -1,4 +1,4 @@
-package com.example.movieapp.movies
+package com.example.movieapp.ui.movies
 
 
 import android.app.Dialog
@@ -10,20 +10,20 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.movieapp.R
-import com.example.movieapp.adapters.MoviesRecyclerAdapter
+import com.example.movieapp.ui.adapters.MoviesRecyclerAdapter
 import com.example.movieapp.api.ApiErrorHandling
-import com.example.movieapp.base_fragment.BaseFragment
+import com.example.movieapp.ui.base_fragment.BaseFragment
 import com.example.movieapp.databinding.DialogBinding
 import com.example.movieapp.databinding.MoviesFragmentBinding
 import com.example.movieapp.extensions.animation
 import com.example.movieapp.extensions.observer
 import com.example.movieapp.extensions.setUp
 import com.example.movieapp.extensions.toast
-import com.example.movieapp.listeners.SetScrollListener
+import com.example.movieapp.ui.listeners.SetScrollListener
+import com.example.movieapp.utils.Constants.CONNECTION_CHECKER_DELAY
 import com.example.movieapp.utils.Constants.POPULAR
 import com.example.movieapp.utils.Constants.POPULAR_FOR_VIEW
 import com.example.movieapp.utils.Constants.SAVED
-import com.example.movieapp.utils.Constants.SPLASH_DELAY
 import com.example.movieapp.utils.Constants.TOP_RATED
 import com.example.movieapp.utils.Constants.TOP_RATED_FOR_VIEW
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +60,7 @@ class MoviesFragment : BaseFragment<MoviesFragmentBinding, MoviesFragmentViewMod
             connectionHandler(viewModel)
         })
         viewLifecycleOwner.lifecycleScope.launch {
-            delay(500L)
+            delay(CONNECTION_CHECKER_DELAY)
             if (viewModel.isNetworkAvailable.value == null) {
                 viewModel.setInternetConnection(false)
                 connectionHandler(viewModel)
@@ -95,7 +95,10 @@ class MoviesFragment : BaseFragment<MoviesFragmentBinding, MoviesFragmentViewMod
             ViewModel.newPage = it
         }
         moviesRecyclerAdapter.getMoviesId = { id  ->
-            val action = MoviesFragmentDirections.actionMoviesToMoviesDetailScreen(id)
+            val action =
+                MoviesFragmentDirections.actionMoviesToMoviesDetailScreen(
+                    id
+                )
             findNavController().navigate(action)
         }
     }

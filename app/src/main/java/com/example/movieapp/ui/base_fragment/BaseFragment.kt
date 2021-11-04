@@ -1,4 +1,4 @@
-package com.example.movieapp.base_fragment
+package com.example.movieapp.ui.base_fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

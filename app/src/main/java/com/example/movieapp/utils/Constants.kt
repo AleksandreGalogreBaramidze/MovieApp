@@ -10,4 +10,5 @@ object Constants {
     const val TOP_RATED_FOR_VIEW = "Top Rated"
     const val SAVED = "saved"
     const val GOOGLE_URL = "https://www.google.com/"
+    const val CONNECTION_CHECKER_DELAY = 500L
 }

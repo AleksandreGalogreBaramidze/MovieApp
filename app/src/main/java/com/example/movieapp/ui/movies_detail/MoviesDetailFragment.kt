@@ -1,4 +1,4 @@
-package com.example.movieapp.movies_detail
+package com.example.movieapp.ui.movies_detail
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.movieapp.R
 import com.example.movieapp.api.ApiErrorHandling
-import com.example.movieapp.base_fragment.BaseFragment
+import com.example.movieapp.ui.base_fragment.BaseFragment
 import com.example.movieapp.database.Entity
 import com.example.movieapp.databinding.MoviesDetailFragmentBinding
 import com.example.movieapp.extensions.load
@@ -23,7 +23,7 @@ class MoviesDetailFragment : BaseFragment<MoviesDetailFragmentBinding, MoviesDet
     
     private val safeArgs: MoviesDetailFragmentArgs by navArgs()
     private lateinit var pictureUrl : String
-    override fun initFragment(viewModel:MoviesDetailFragmentViewModel) {
+    override fun initFragment(viewModel: MoviesDetailFragmentViewModel) {
         viewModel.movieDetails(safeArgs.id)
         viewModel.isFavorite(safeArgs.id)
         binding.backArrowIv.setOnClickListener {
@@ -32,7 +32,7 @@ class MoviesDetailFragment : BaseFragment<MoviesDetailFragmentBinding, MoviesDet
         observes(viewModel)
     }
     @SuppressLint("SetTextI18n")
-    private fun observes(ViewModel:MoviesDetailFragmentViewModel) {
+    private fun observes(ViewModel: MoviesDetailFragmentViewModel) {
         observer(ViewModel.liveData){
             when (it.status) {
                 ApiErrorHandling.Status.Success -> {

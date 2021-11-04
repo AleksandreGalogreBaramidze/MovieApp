@@ -6,7 +6,7 @@
     app:startDestination="@id/splashScreen2">
     <fragment
         android:id="@+id/splashScreen2"
-        android:name="com.example.movieapp.splash.SplashScreen"
+        android:name="com.example.movieapp.ui.splash.SplashScreen"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen">
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/movies"
-        android:name="com.example.movieapp.movies.MoviesFragment"
+        android:name="com.example.movieapp.ui.movies.MoviesFragment"
         android:label="movies_fragment"
         tools:layout="@layout/movies_fragment" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/moviesDetailScreen"
-        android:name="com.example.movieapp.movies_detail.MoviesDetailFragment"
+        android:name="com.example.movieapp.ui.movies_detail.MoviesDetailFragment"
         android:label="movies_detail_screen_fragment"
         tools:layout="@layout/movies_detail_fragment" >
         <argument
