@@ -19,8 +19,10 @@ import com.example.movieapp.extensions.animation
 import com.example.movieapp.extensions.observer
 import com.example.movieapp.extensions.setUp
 import com.example.movieapp.extensions.toast
-import com.example.movieapp.ui.adapters.SetScrollListener
+import com.example.movieapp.ui.adapters.ScrollListener
 import com.example.movieapp.utils.Constants.CONNECTION_CHECKER_DELAY
+import com.example.movieapp.utils.Constants.ONE_PAGE
+import com.example.movieapp.utils.Constants.PAGE_SIZE
 import com.example.movieapp.utils.Constants.POPULAR
 import com.example.movieapp.utils.Constants.POPULAR_FOR_VIEW
 import com.example.movieapp.utils.Constants.SAVED
@@ -69,13 +71,15 @@ class MoviesFragment : BaseFragment<MoviesFragmentBinding, MoviesFragmentViewMod
     }
 
     private fun connectionHandler(ViewModel: MoviesFragmentViewModel){
-        viewLifecycleOwner.lifecycleScope.launch{
-            observer(ViewModel.isNetworkAvailable){
-                if(it == true){
+        observer(ViewModel.isNetworkAvailable){
+            when (it) {
+                true -> {
                     ViewModel.getData()
-                }else if (it == false){
+                }
+                false -> {
                     errorDialog()
-                }else{
+                }
+                else -> {
                     networkConnectionObserver(ViewModel)
                 }
             }
@@ -89,7 +93,7 @@ class MoviesFragment : BaseFragment<MoviesFragmentBinding, MoviesFragmentViewMod
             animation(R.anim.logo_animation)
             layoutManager = GridLayoutManager(requireContext(),2)
             adapter = moviesRecyclerAdapter
-            addOnScrollListener(SetScrollListener{ViewModel.loadNextPage()})
+            addOnScrollListener(ScrollListener({ViewModel.loadNextPage()}, PAGE_SIZE))
         }
         moviesRecyclerAdapter.loadPage= {
             ViewModel.newPage = it
@@ -106,7 +110,7 @@ class MoviesFragment : BaseFragment<MoviesFragmentBinding, MoviesFragmentViewMod
         observer(ViewModel.livedata){
             when(it.status){
                 ApiErrorHandling.Status.Success ->{
-                    if(it.data!!.page != 1){
+                    if(it.data!!.page != ONE_PAGE){
                         it.data.let { it1 -> moviesRecyclerAdapter.loadNextPage(it1) }
                     }else{
                         it.data.let { it1 -> moviesRecyclerAdapter.setData(it1) }

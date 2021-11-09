@@ -11,16 +11,12 @@ import retrofit2.http.Query
 interface RetrofitService {
     @GET("popular")
     suspend fun getPopularMovies(
-        @Query("api_key")
-        api_Key: String = KEY,
         @Query("page")
         page: Int
     ): Response<Movie>
 
     @GET("top_rated")
     suspend fun getTopRatedMovies(
-        @Query("api_key")
-        api_Key: String = KEY,
         @Query("page")
         page: Int
     ): Response<Movie>
@@ -29,7 +25,5 @@ interface RetrofitService {
     suspend fun getDetail(
         @Path("movie_id")
         movieId: Int,
-        @Query("api_key")
-        api_Key: String = KEY
     ): Response<Detail>
 }

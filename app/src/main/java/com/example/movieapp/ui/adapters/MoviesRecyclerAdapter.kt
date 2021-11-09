@@ -31,7 +31,7 @@ class MoviesRecyclerAdapter : RecyclerView.Adapter<MoviesRecyclerAdapter.ViewHol
             mainImage.load(holder.binding.root.context, item.urlGenerator())
             titleTextView.text = item.title
             mainImage.setOnClickListener {
-                getMoviesId(data[position].id)
+                getMoviesId.invoke(data[position].id)
             }
         }
     }

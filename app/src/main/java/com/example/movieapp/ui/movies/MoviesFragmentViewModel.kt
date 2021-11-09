@@ -10,6 +10,7 @@ import com.example.movieapp.api.RetrofitRepository
 import com.example.movieapp.database.DatabaseRepository
 import com.example.movieapp.models.Movie
 import com.example.movieapp.models.MovieDetails
+import com.example.movieapp.utils.Constants.ONE_PAGE
 import com.example.movieapp.utils.Constants.POPULAR
 import com.example.movieapp.utils.Constants.SAVED
 import com.example.movieapp.utils.Constants.TOP_RATED
@@ -40,53 +41,51 @@ class MoviesFragmentViewModel @Inject constructor(private val retrofitRepository
     var newPage = 1
 
     private fun popularMovies(page: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val result = retrofitRepository.getPopularMoviesData(page)
-                _livedata.postValue(result)
-                _isTopRated.postValue(false)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = retrofitRepository.getPopularMoviesData(page)
+            _livedata.postValue(result)
+            _isTopRated.postValue(false)
         }
     }
 
     private fun topRatedMovies(page: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val result = retrofitRepository.getTopMoviesData(page)
-                _livedata.postValue(result)
-                _isTopRated.postValue(true)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = retrofitRepository.getTopMoviesData(page)
+            _livedata.postValue(result)
+            _isTopRated.postValue(true)
         }
     }
 
     private fun savedMovies(){
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val result = databaseRepository.getSavedMovies()
-                val favoriteMovies: MutableList<MovieDetails> = mutableListOf()
-                result.forEach {
-                    favoriteMovies.add(MovieDetails(it.poster, it.id))
-                }
-                _savedLiveData.postValue(favoriteMovies)
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = databaseRepository.getSavedMovies()
+            val favoriteMovies: MutableList<MovieDetails> = mutableListOf()
+            result.forEach {
+                favoriteMovies.add(MovieDetails(it.poster, it.id))
             }
+            _savedLiveData.postValue(favoriteMovies)
         }
     }
 
     fun getData() {
-        if (category == POPULAR) {
-            popularMovies(1)
-        } else if (category == TOP_RATED) {
-            topRatedMovies(1)
-        } else if (category == SAVED){
-            savedMovies()
+        when (category) {
+            POPULAR -> {
+                popularMovies(ONE_PAGE)
+            }
+            TOP_RATED -> {
+                topRatedMovies(ONE_PAGE)
+            }
+            SAVED -> {
+                savedMovies()
+            }
         }
     }
 
     fun loadNextPage() {
         if(category == POPULAR){
-            popularMovies(newPage + 1)
+            popularMovies(newPage + ONE_PAGE)
         }else if(category == TOP_RATED){
-            topRatedMovies(newPage + 1)
+            topRatedMovies(newPage + ONE_PAGE)
         }
     }
 
