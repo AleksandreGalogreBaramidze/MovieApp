@@ -4,4 +4,11 @@
     <string name="warner">Warner</string>
     <string name="sisters">Sisters</string>
     <string name="pictures">Pictures</string>
+    <string name="popular">Popular</string>
+    <string name="basemovietitle">Base Movie Title</string>
+    <string name="after_a_horrible_car_accident_brilliant_neurosurgeon_stephen_strange_must_find_a_way_and_a_cure_to_healing_his_hands_his_quest_brings_him_to_kamar_taj_in_nepal_where_he_studies_under_the_ancient_one_who_teaches_him_the_ways_of_magic_and_alternate_realities">After a horrible car accident, brilliant neurosurgeon Stephen Strange must find a way and a cure to healing his hands. His quest brings him to Kamar-Taj in Nepal where he studies under the Ancient One, who teaches him the ways of magic and alternate realities.</string>
+    <string name="release_date_14_07_2002">release date: 14–07-2002</string>
+    <string name="retry">Retry</string>
+    <string name="problem_detected">Problem Detected</string>
+    <string name="_4_2">4.2</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.example.movieapp.utils
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+typealias openNextPage = (page: Int) -> Unit
+typealias getMoviesId = (id: Int) -> Unit
 
-typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
+
