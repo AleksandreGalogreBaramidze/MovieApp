@@ -3,8 +3,9 @@ package com.example.movieapp.ui.adapters
 import android.widget.AbsListView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.movieapp.utils.Constants.ONE_PAGE
 
-class SetScrollListener(val call: () -> Unit) : RecyclerView.OnScrollListener() {
+class ScrollListener(val call: () -> Unit,private val page: Int) : RecyclerView.OnScrollListener() {
 
     var scrolling = false
 
@@ -13,8 +14,8 @@ class SetScrollListener(val call: () -> Unit) : RecyclerView.OnScrollListener() 
 
         val recyclerLayoutManager = recyclerView.layoutManager as GridLayoutManager
         val lastItem = recyclerLayoutManager.findFirstVisibleItemPosition() + recyclerLayoutManager.childCount >= recyclerLayoutManager.itemCount
-        val notAtBegin = recyclerLayoutManager.findFirstVisibleItemPosition() >= 1
-        val moreThanShowedItems = recyclerLayoutManager.itemCount >= 20
+        val notAtBegin = recyclerLayoutManager.findFirstVisibleItemPosition() >= ONE_PAGE
+        val moreThanShowedItems = recyclerLayoutManager.itemCount >= page
         if (notAtBegin && scrolling && lastItem && notAtBegin && moreThanShowedItems ) {
             call()
             scrolling = false

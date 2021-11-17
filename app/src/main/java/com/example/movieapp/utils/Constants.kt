@@ -11,4 +11,7 @@ object Constants {
     const val SAVED = "saved"
     const val GOOGLE_URL = "https://www.google.com/"
     const val CONNECTION_CHECKER_DELAY = 500L
+    const val ONE_PAGE = 1
+    const val PAGE_SIZE = 20
+    const val API_KEY_PARAM = "api_key"
 }
