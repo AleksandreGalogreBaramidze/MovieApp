@@ -1,11 +1,8 @@
 package com.example.movieapp.ui.movies
 
 
-import android.app.Dialog
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -13,14 +10,13 @@ import com.example.movieapp.R
 import com.example.movieapp.ui.adapters.MoviesRecyclerAdapter
 import com.example.movieapp.api.ApiErrorHandling
 import com.example.movieapp.ui.base_fragment.BaseFragment
-import com.example.movieapp.databinding.DialogBinding
 import com.example.movieapp.databinding.MoviesFragmentBinding
 import com.example.movieapp.extensions.animation
 import com.example.movieapp.extensions.observer
-import com.example.movieapp.extensions.setUp
 import com.example.movieapp.extensions.toast
 import com.example.movieapp.ui.adapters.ScrollListener
 import com.example.movieapp.utils.Constants.CONNECTION_CHECKER_DELAY
+import com.example.movieapp.utils.Constants.NO_INTERNET_CONNECTION
 import com.example.movieapp.utils.Constants.ONE_PAGE
 import com.example.movieapp.utils.Constants.PAGE_SIZE
 import com.example.movieapp.utils.Constants.POPULAR
@@ -46,16 +42,9 @@ class MoviesFragment : BaseFragment<MoviesFragmentBinding, MoviesFragmentViewMod
         networkConnectionObserver(viewModel)
     }
 
-    private fun errorDialog(){
-        val viewDialog = Dialog(requireContext())
-        val bindDialog = DialogBinding.inflate(layoutInflater)
-        viewDialog.setUp(WindowManager.LayoutParams.WRAP_CONTENT,WindowManager.LayoutParams.MATCH_PARENT, bindDialog)
-        bindDialog.CloseButton.setOnClickListener {
-            viewDialog.cancel()
-        }
-        viewDialog.show()
+    private fun noInternet(){
+        NO_INTERNET_CONNECTION.toast(requireContext())
     }
-
     private fun networkConnectionObserver(viewModel: MoviesFragmentViewModel) {
         viewModel.checkConnection.observe(viewLifecycleOwner, {
             viewModel.setInternetConnection(it)
@@ -77,7 +66,8 @@ class MoviesFragment : BaseFragment<MoviesFragmentBinding, MoviesFragmentViewMod
                     ViewModel.getData()
                 }
                 false -> {
-                    errorDialog()
+                    noInternet()
+
                 }
                 else -> {
                     networkConnectionObserver(ViewModel)
@@ -119,7 +109,6 @@ class MoviesFragment : BaseFragment<MoviesFragmentBinding, MoviesFragmentViewMod
                 }
                 ApiErrorHandling.Status.Error ->{
                     it.message?.toast(requireContext())
-                    it.message?.let { it1 -> d("error", it1) }
                 }
             }
         }

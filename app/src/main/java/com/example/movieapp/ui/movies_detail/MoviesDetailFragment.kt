@@ -29,10 +29,11 @@ class MoviesDetailFragment : BaseFragment<MoviesDetailFragmentBinding, MoviesDet
         binding.backArrowIv.setOnClickListener {
             findNavController().navigateUp()
         }
-        observes(viewModel)
+        observesData(viewModel)
+        observesChecker(viewModel)
     }
     @SuppressLint("SetTextI18n")
-    private fun observes(ViewModel: MoviesDetailFragmentViewModel) {
+    private fun observesData(ViewModel: MoviesDetailFragmentViewModel) {
         observer(ViewModel.liveData){
             when (it.status) {
                 ApiErrorHandling.Status.Success -> {
@@ -49,6 +50,9 @@ class MoviesDetailFragment : BaseFragment<MoviesDetailFragmentBinding, MoviesDet
                 }
             }
         }
+    }
+
+    private fun observesChecker(ViewModel: MoviesDetailFragmentViewModel){
         observer(ViewModel.checkerLiveData){
             if(it){
                 with(binding.favoriteStarImageView){

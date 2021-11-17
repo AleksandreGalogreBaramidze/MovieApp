@@ -12,7 +12,6 @@ import com.example.movieapp.models.Detail
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 @HiltViewModel
 class MoviesDetailFragmentViewModel@Inject constructor(
@@ -26,35 +25,27 @@ class MoviesDetailFragmentViewModel@Inject constructor(
     var checkerLiveData: LiveData<Boolean> = _checkerLiveData
 
     fun movieDetails(id: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                val result = retrofitRepository.getDetailMovie(id)
-                _liveData.postValue(result)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = retrofitRepository.getDetailMovie(id)
+            _liveData.postValue(result)
         }
     }
 
     fun favoriteMovies(Entity: Entity) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                databaseRepository.saveMovie(Entity)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepository.saveMovie(Entity)
         }
     }
 
     fun isFavorite(id: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _checkerLiveData.postValue(databaseRepository.checker(id))
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            _checkerLiveData.postValue(databaseRepository.checker(id))
         }
     }
 
     fun removeFavorite(id: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                databaseRepository.deleteMovie(id)
-            }
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseRepository.deleteMovie(id)
 
         }
     }

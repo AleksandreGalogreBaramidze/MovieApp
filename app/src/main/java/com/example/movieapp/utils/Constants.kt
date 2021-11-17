@@ -14,4 +14,5 @@ object Constants {
     const val ONE_PAGE = 1
     const val PAGE_SIZE = 20
     const val API_KEY_PARAM = "api_key"
+    const val NO_INTERNET_CONNECTION = "No connection"
 }
